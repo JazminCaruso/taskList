@@ -10,18 +10,6 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingTop: StatusBar.currentHeight,
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  input: {
-    flex: 0.95,
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    color: '#212121',
-    fontSize: 14,
-  },
   listContainer: {
     marginTop: 25,
   },
