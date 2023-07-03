@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Button, SafeAreaView, Text, FlatList, Modal, TouchableOpacity } from 'react-native';
 
-import { InputTask } from './components/components'
+import { InputTask, TaskItem, ModalDelete } from './components/components'
 
 import { styles } from './styles';
 
@@ -45,12 +45,7 @@ export default function App() {
     setIsVisible(false);
   };
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} onPress={() => onHandlerModal(item)}>
-      <Text style={styles.listItem}>{item.value}</Text>
-      <Text style={styles.icon}>X</Text>
-    </TouchableOpacity>
-  );
+  const renderItem = ({ item }) => <TaskItem item = {item} onPressItem={onHandlerModal} />;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -67,25 +62,12 @@ export default function App() {
           <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.id} />
         </View>
       </View>
-      <Modal visible={isVisible} animationType="slide">
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Task Detail</Text>
-          <View style={styles.modalDetailContainer}>
-            <Text style={styles.modalDetailMessage}>
-              Estás seguro de que quiere eliminar este item?
-            </Text>
-            <Text style={styles.selectedTask}>{selectedTask?.value}</Text>
-          </View>
-          <View style={styles.modalButtonContainer}>
-            <Button title="Cancelar" color="#424D9E" onPress={() => setIsVisible(false)} />
-            <Button
-              title="Confirmar"
-              color="red"
-              onPress={() => onHandlerDelete(selectedTask?.id)}
-            />
-          </View>
-        </View>
-      </Modal>
+      <ModalDelete 
+          isVisible={isVisible}
+          selectedTask={selectedTask}
+          setIsVisible={setIsVisible}
+          onHandlerDelete={onHandlerDelete}
+      />
     </SafeAreaView>
   );
 }
