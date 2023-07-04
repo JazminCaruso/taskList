@@ -9,6 +9,7 @@ export default function App() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
+  const [viewDelete, setViewDelete] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const onHandlerFocus = () => {
@@ -39,11 +40,12 @@ export default function App() {
   const onHandlerModal = (item) => {
     setSelectedTask(item);
     setIsVisible(true);
+    setViewDelete(false);
   };
 
   const onHandlerDelete = (id) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-    setIsVisible(false);
+    setViewDelete(false);
   };
 
   const onSaveDescriptionAndDeadline = (id, description, deadline) => {
@@ -88,8 +90,10 @@ export default function App() {
         isVisible={isVisible}
         selectedTask={selectedTask}
         setIsVisible={setIsVisible}
-        onHandlerDelete={onHandlerDelete}
         onSaveDescriptionAndDeadline={onSaveDescriptionAndDeadline}
+        viewDelete={viewDelete}
+        setViewDelete={setViewDelete}
+        onHandlerDelete={onHandlerDelete}
       />
     </SafeAreaView>
   );
