@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { View, Button, Text, Modal, TextInput } from 'react-native';
+import { ModalDelete } from '../../components/components'
 
 import { styles } from './styles';
 
 const ModalDetail = ({
   isVisible,
-  viewDelete,
   selectedTask,
   setIsVisible,
+  viewDelete,
   setViewDelete,
   onSaveDescriptionAndDeadline,
   onHandlerDelete,
@@ -59,36 +60,15 @@ const ModalDetail = ({
           />
         </View>
         <View style={styles.modalButtonContainer}>
-          <Button title="Cancel" color="#424D9E" onPress={() => setIsVisible(false)} />
+          <Button title="Skip" color="#424D9E" onPress={() => setIsVisible(false)} />
           <Button title="Delete task" color="red" onPress={() => setViewDelete(true)} />
-          <Modal visible={viewDelete} animationType='slide'>
-              <View style={styles.modalContainer}>
-              <Text style={styles.modalTitle}>Task Detail</Text>
-              <View style={styles.modalDetailContainer}>
-                <Text style={styles.modalDetailMessage}>
-                  Estás seguro de que quiere eliminar este item?
-                </Text>
-                <Text style={styles.selectedTask}>{selectedTask?.value}</Text>
-              </View>
-              <View style={styles.modalButtonContainer}>
-                <Button 
-                  title="Cancelar" 
-                  color="#424D9E" 
-                  onPress={() => setViewDelete(false) } />
-                <Button
-                  title="Confirmar"
-                  color="red"
-                  onPress={() => {
-                    onHandlerDelete(selectedTask?.id);
-                    setViewDelete(false);
-                    setTimeout(() => {
-                      setIsVisible(false);
-                    }, 100);
-                  }}
-                />
-              </View>
-            </View>
-          </Modal>
+          <ModalDelete
+            viewDelete={viewDelete}
+            onHandlerDelete={onHandlerDelete}
+            selectedTask={selectedTask}
+            setIsVisible={setIsVisible}
+            setViewDelete={setViewDelete}
+          />
           <Button title="Save" color="green" onPress={onSave} />
         </View>
       </View>
