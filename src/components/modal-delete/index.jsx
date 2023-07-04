@@ -11,17 +11,17 @@ const ModalDelete = ({
     return (
         <Modal visible={isVisible} animationType="slide">
         <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Task Detail</Text>
+          <Text style={styles.modalTitle}>Delete Task</Text>
           <View style={styles.modalDetailContainer}>
             <Text style={styles.modalDetailMessage}>
-              Estás seguro de que quiere eliminar este item?
+                Are you sure to delete this task?
             </Text>
             <Text style={styles.selectedTask}>{selectedTask?.value}</Text>
           </View>
           <View style={styles.modalButtonContainer}>
-            <Button title="Cancelar" color="#424D9E" onPress={() => setIsVisible(false)} />
+            <Button title="Cancel" color="blue" onPress={() => setIsVisible(false)} />
             <Button
-              title="Confirmar"
+              title="Delete"
               color="red"
               onPress={() => onHandlerDelete(selectedTask?.id)}
             />

@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#D4D7ED',
         paddingHorizontal: 10,
         borderRadius: 10,
-        color: '#212121',
+        backgroundColor: '#683257',
         marginBottom: 10,
         shadowColor: '#000',
         shadowOffset: {
@@ -22,12 +22,12 @@ export const styles = StyleSheet.create({
         elevation: 3,
     },
     listItem: {
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#212121',
+        color: '#fff',
     },
     icon: {
-        color: 'red',
+        color: '#fff',
         fontSize: 16,
     },
 })
