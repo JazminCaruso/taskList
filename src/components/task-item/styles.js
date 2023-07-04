@@ -25,8 +25,4 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "#fff",
     },
-    icon: {
-        color: "#fff",
-        fontSize: 16,
-    },
 });

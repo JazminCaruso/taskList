@@ -9,7 +9,6 @@ const TaskItem = ({ onPressItem, item }) => {
             onPress={() => onPressItem(item)}
         >
             <Text style={styles.listItem}>{item.value}</Text>
-            <Text style={styles.icon}>X</Text>
         </TouchableOpacity>
     );
 };

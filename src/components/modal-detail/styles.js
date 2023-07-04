@@ -48,5 +48,6 @@ export const styles = StyleSheet.create({
         justifyContent: "space-around",
         marginHorizontal: 20,
         backgroundColor: "#fff",
+        padding: 10,
     },
 });
