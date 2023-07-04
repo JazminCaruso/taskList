@@ -6,7 +6,7 @@ const AddTask = ({
 }) => {
   return (
     <Button
-        disabled={task.length === 0}
+        disabled={task.length <= 2}
         title="Add"
         color="#683257"
         onPress={onHandlerCreateTask}

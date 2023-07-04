@@ -1,24 +1,15 @@
-
+import { useState } from 'react';
 import { View, SafeAreaView, FlatList, Text } from 'react-native';
 
-import { InputTask, TaskItem, ModalDelete, AddTask } from './components/components'
-import { useTaskState } from './const/state';
+import { InputTask, TaskItem, AddTask, ModalDetail } from './components/components';
 import { styles } from './styles';
 
 export default function App() {
-  
-  const {
-    borderColor,
-    setBorderColor,
-    task,
-    setTask,
-    tasks,
-    setTasks,
-    isVisible,
-    setIsVisible,
-    selectedTask,
-    setSelectedTask,
-  } = useTaskState();
+  const [borderColor, setBorderColor] = useState('#acacac');
+  const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   const onHandlerFocus = () => {
     setBorderColor('#683257');
@@ -33,19 +24,21 @@ export default function App() {
   };
 
   const onHandlerCreateTask = () => {
-    setTasks([
-      ...tasks,
+    setTasks((prevTasks) => [
+      ...prevTasks,
       {
         id: Date.now().toString(),
         value: task,
+        description: '',
+        deadline: '',
       },
     ]);
     setTask('');
   };
 
   const onHandlerModal = (item) => {
-    setIsVisible(true);
     setSelectedTask(item);
+    setIsVisible(true);
   };
 
   const onHandlerDelete = (id) => {
@@ -53,7 +46,22 @@ export default function App() {
     setIsVisible(false);
   };
 
-  const renderItem = ({ item }) => <TaskItem item = {item} onPressItem={onHandlerModal} />;
+  const onSaveDescriptionAndDeadline = (id, description, deadline) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            description: description,
+            deadline: deadline,
+          };
+        }
+        return task;
+      })
+    );
+  };
+
+  const renderItem = ({ item }) => <TaskItem item={item} onPressItem={onHandlerModal} />;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -68,20 +76,20 @@ export default function App() {
             task={task}
             onHandlerCreateTask={onHandlerCreateTask}
           />
-          <AddTask
-            task={task}
-            onHandlerCreateTask={onHandlerCreateTask}
-          />
+          <AddTask task={task} onHandlerCreateTask={onHandlerCreateTask} />
         </View>
+          <Text style={styles.text}>Tap the task to view or add details.</Text>
+          <Text style={styles.text}>If you haven't added any yet, do it!</Text>
         <View style={styles.listContainer}>
           <FlatList data={tasks} renderItem={renderItem} keyExtractor={(item) => item.id} />
         </View>
       </View>
-      <ModalDelete 
+      <ModalDetail
         isVisible={isVisible}
         selectedTask={selectedTask}
         setIsVisible={setIsVisible}
         onHandlerDelete={onHandlerDelete}
+        onSaveDescriptionAndDeadline={onSaveDescriptionAndDeadline}
       />
     </SafeAreaView>
   );
