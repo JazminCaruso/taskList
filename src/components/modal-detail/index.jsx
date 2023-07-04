@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { View, Button, Text, Modal, TextInput } from 'react-native';
-import { ModalDelete } from '../../components/components'
 
 import { styles } from './styles';
 
 const ModalDetail = ({
   isVisible,
-  selectedTask,
   setIsVisible,
+  selectedTask,
+  onSaveDescriptionAndDeadline,
   viewDelete,
   setViewDelete,
-  onSaveDescriptionAndDeadline,
   onHandlerDelete,
 }) => {
   const [description, setDescription] = useState('');
@@ -62,13 +61,34 @@ const ModalDetail = ({
         <View style={styles.modalButtonContainer}>
           <Button title="Skip" color="#424D9E" onPress={() => setIsVisible(false)} />
           <Button title="Delete task" color="red" onPress={() => setViewDelete(true)} />
-          <ModalDelete
-            viewDelete={viewDelete}
-            onHandlerDelete={onHandlerDelete}
-            selectedTask={selectedTask}
-            setIsVisible={setIsVisible}
-            setViewDelete={setViewDelete}
-          />
+          <Modal visible={viewDelete} animationType='slide'>
+            <View style={styles.modalContainer}>
+              <Text style={styles.modalTitle}>Delete task</Text>
+              <View style={styles.modalDetailContainer}>
+                <Text style={styles.modalDetailMessage}>
+                  Are you sure to delete this task?
+                </Text>
+                <Text style={styles.selectedTask}>{selectedTask?.value}</Text>
+              </View>
+              <View style={styles.modalButtonContainer}>
+                <Button 
+                  title="Cancel" 
+                  color="#424D9E" 
+                  onPress={() => setViewDelete(false) } />
+                <Button
+                  title="Yes, delete"
+                  color="red"
+                  onPress={() => {
+                    onHandlerDelete(selectedTask?.id);
+                    setViewDelete(false);
+                    setTimeout(() => {
+                      setIsVisible(false);
+                    }, 100);
+                  }}
+                />
+              </View>
+            </View>
+          </Modal>
           <Button title="Save" color="green" onPress={onSave} />
         </View>
       </View>

@@ -88,12 +88,12 @@ export default function App() {
       </View>
       <ModalDetail
         isVisible={isVisible}
-        selectedTask={selectedTask}
         setIsVisible={setIsVisible}
-        onSaveDescriptionAndDeadline={onSaveDescriptionAndDeadline}
+        selectedTask={selectedTask}
         viewDelete={viewDelete}
         setViewDelete={setViewDelete}
         onHandlerDelete={onHandlerDelete}
+        onSaveDescriptionAndDeadline={onSaveDescriptionAndDeadline}
       />
     </SafeAreaView>
   );
